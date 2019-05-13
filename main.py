@@ -32,13 +32,17 @@ def updated_client(client_name, updated_client_name):
 		print ('Client is no it client\'s list')
 
 
-def delete_client(client_name):
+def delete_client(client_id):
     global clients
 
-    if _exist_client(client_name):
-        clients.remove(client_name)
-    else:
-        _client_not_found()
+    for idx, client in enumerate(clients):
+        if not idx == client_id:
+            continue
+        else:
+            del clients[idx] 
+            break
+    #Si no aparecen coincidencias en las listas se envia el siiguiente mensaje
+    _client_not_found()
 
 
 def search_client(client_name):
@@ -119,8 +123,8 @@ if __name__ == '__main__':
         create_client(client)
         list_clients()
     elif command == 'D':
-        client_name = _get_client_name()
-        delete_client(client_name)
+        client_id = int(_get_client_field('id'))
+        delete_client(client_id)
         list_clients()
     elif command == 'U':
         client_name = _get_client_name()
